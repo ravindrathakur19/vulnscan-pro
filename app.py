@@ -2,6 +2,9 @@
 Advanced Web Vulnerability Scanner - Web App
 Flask + SocketIO for live terminal output
 """
+import eventlet
+eventlet.monkey_patch()
+
 import os
 import sys
 import json
@@ -13,7 +16,7 @@ from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'vuln-scanner-secret-2024')
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Store active scans and results
 active_scans = {}   # scan_id -> thread
